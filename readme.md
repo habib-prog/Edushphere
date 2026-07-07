@@ -1,24 +1,25 @@
 # 🎓 Edusphere - Student Management System
 
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2020.0.0-blue.svg)](https://nodejs.org)
 [![Express Version](https://img.shields.io/badge/express-v5.2.1-green.svg)](https://expressjs.com/)
 [![Database](https://img.shields.io/badge/database-MongoDB-brightgreen.svg)](https://www.mongodb.com/)
 [![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
 
-**Edusphere** is a robust, role-based Student Management System and Educational ERP API designed to streamline academic operations. It provides comprehensive portals for **Admins**, **Teachers**, and **Students**, allowing smooth coordination of classes, results, attendance, notices, and user requests.
+**Edusphere** is a robust, **Dockerized**, role-based Student Management System and Educational ERP API designed to streamline academic operations. Leveraging a high-performance **Redis** caching layer for optimal speed, it provides comprehensive portals for **Admins**, **Teachers**, and **Students**, allowing smooth coordination of classes, results, attendance, notices, and user requests.
 
 ---
 
 ## 🚀 Tech Stack
 
+- **Containerization:** Docker
 - **Runtime Environment:** Node.js (ES Modules)
 - **Backend Framework:** Express.js (v5)
 - **Database:** MongoDB & Mongoose (ODM)
 - **Caching & Message Broker:** Redis
 - **Authentication & Security:** JWT (JSON Web Tokens) & BcryptJS
-- **Validation:** Joi & Zod
+- **Validation:** Joi
 - **Testing Framework:** Vitest
-- **Containerization:** Docker
 - **Email Service:** Nodemailer
 - **CORS Utility:** CORS for cross-origin resource sharing
 
