@@ -32,7 +32,7 @@
   - **Likes** on notices
   - **Comments** thread on notices
 - **Authentication System:**
-  - **Registration** with role definition
+  - **Registration** with role definition and secure password hashing using **Bcrypt**
   - **Secure Login** with JWT generation
   - **Logout** session termination
 - **Batch Management (CRUD):** Organize students and courses into distinct study batches.
