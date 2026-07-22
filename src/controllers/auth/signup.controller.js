@@ -1,29 +1,18 @@
+import { signupValidationSchema } from "../../helpers/validator/auth.validator.js";
 import { SignupService } from "../../services/auth/signup.services.js";
 
 export const signupController = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    const errors = {};
+    const validationResult = signupValidationSchema.safeParse(req.body);
 
-    // Validate request body before calling the service layer. Ghum ashe ken ^_^ ?
-    if (!name) {
-      errors.name = "Name is required";
-    }
-
-    if (!email) {
-      errors.email = "Email is required";
-    }
-
-    if (!password) {
-      errors.password = "Password is required";
-    }
-    // Used "keys" property to iterate the object
-    if (Object.keys(errors).length > 0) {
+    if (!validationResult.success) {
       return res.status(400).json({
         success: false,
-        errors,
+        errors: validationResult.error.flatten().fieldErrors,
       });
     }
+
+    const { name, email, password } = validationResult.data;
 
     // Service handles database and business logic.
     const user = await SignupService({ name, email, password });
