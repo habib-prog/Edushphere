@@ -125,11 +125,18 @@ A personalized panel for students to manage their academic life:
 
 3. **Set Up Environment Variables:**
    Create a `.env` file in the root directory:
-   ```env
-   PORT=8000
-   Database=your_mongodb_connection_uri
-   JWT_SECRET=your_jwt_secret_key
-   ```
+  ```env
+  PORT=8000
+  Database=your_mongodb_connection_uri
+  JWT_SECRET=your_jwt_secret_key
+  REDIS_URL=redis://localhost:6379
+  SMTP_HOST=smtp.gmail.com
+  SMTP_PORT=587
+  SMTP_SECURE=false
+  SMTP_USER=your_email@gmail.com
+  SMTP_PASS=your_app_password
+  MAIL_FROM=your_email@gmail.com
+  ```
 
 4. **Run the Server:**
    *   **Development Mode (auto-reloading):**

@@ -1,5 +1,15 @@
 import { z } from "zod";
 
+export const verifyOtpValidationSchema = z.object({
+  email: z
+    .string({ required_error: "Email is required" })
+    .email({ message: "Invalid email address format" }),
+
+  otp: z
+    .string({ required_error: "OTP is required" })
+    .length(6, { message: "OTP must be exactly 6 characters long" }),
+});
+
 export const signupValidationSchema = z.object({
   name: z
     .string({ required_error: "Name is required" })
