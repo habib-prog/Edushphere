@@ -3,6 +3,7 @@ import {
   getOtpFromStore,
   deleteOtpFromStore,
 } from "../../helpers/Otp/otp.service.js";
+import { sendVerificationSuccessEmail } from "../../helpers/Mail/sendMail.js";
 
 export const verifyOtpService = async ({ email, otp }) => {
   const storedOtp = await getOtpFromStore(email);
@@ -32,6 +33,8 @@ export const verifyOtpService = async ({ email, otp }) => {
     error.statusCode = 404;
     throw error;
   }
+
+  await sendVerificationSuccessEmail(user.email, user.name);
 
   return user;
 };

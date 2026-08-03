@@ -1,8 +1,9 @@
 import nodemailer from "nodemailer";
-import { otpTemplate } from "../Mail_Templates/otp_template.js";
+import { otpTemplate } from "../Mail_Templates/otpVerificationTemplate.js";
+import { verificationSuccessTemplate } from "../Mail_Templates/verificationSuccessTemplate.js";
 
-export const sendOtpEmail = async (to, otp) => {
-  const transporter = nodemailer.createTransport({
+const createTransporter = () => {
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST || "smtp.gmail.com",
     port: Number(process.env.SMTP_PORT) || 587,
     secure: process.env.SMTP_SECURE === "true",
@@ -11,12 +12,29 @@ export const sendOtpEmail = async (to, otp) => {
       pass: process.env.SMTP_PASS,
     },
   });
+};
+
+export const sendOtpEmail = async (to, otp) => {
+  const transporter = createTransporter();
 
   const mailOptions = {
-    from: `"Edusphere" <${process.env.MAIL_FROM || process.env.SMTP_USER}>`,
+    from: `"EDUSPHERE" <${process.env.MAIL_FROM || process.env.SMTP_USER}>`,
     to,
-    subject: "Your Edusphere Verification Code",
+    subject: "Your EDUSPHERE Verification Code",
     html: otpTemplate(otp),
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+export const sendVerificationSuccessEmail = async (to, name) => {
+  const transporter = createTransporter();
+
+  const mailOptions = {
+    from: `"EDUSPHERE" <${process.env.MAIL_FROM || process.env.SMTP_USER}>`,
+    to,
+    subject: "Your EDUSPHERE Account Has Been Verified",
+    html: verificationSuccessTemplate(name),
   };
 
   await transporter.sendMail(mailOptions);
