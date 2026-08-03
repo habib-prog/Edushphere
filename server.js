@@ -1,10 +1,7 @@
+import "dotenv/config";
 import express from "express";
-import "./src/config/redis.js";
-import dotenv from "dotenv";
 import Database from "./src/config/db.js";
 import routes from "./src/routes/index.js";
-
-dotenv.config();
 
 const app = express();
 

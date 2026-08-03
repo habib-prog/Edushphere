@@ -1,8 +1,11 @@
 import User from "../../models/userSchema.js";
-import { getOtpFromRedis, deleteOtpFromRedis } from "../../helpers/Otp/otp.service.js";
+import {
+  getOtpFromStore,
+  deleteOtpFromStore,
+} from "../../helpers/Otp/otp.service.js";
 
 export const verifyOtpService = async ({ email, otp }) => {
-  const storedOtp = await getOtpFromRedis(email);
+  const storedOtp = await getOtpFromStore(email);
 
   if (!storedOtp) {
     const error = new Error("OTP has expired or does not exist");
@@ -16,12 +19,12 @@ export const verifyOtpService = async ({ email, otp }) => {
     throw error;
   }
 
-  await deleteOtpFromRedis(email);
+  await deleteOtpFromStore(email);
 
   const user = await User.findOneAndUpdate(
     { email },
     { isVerified: true },
-    { new: true }
+    { new: true },
   ).select("-password");
 
   if (!user) {
