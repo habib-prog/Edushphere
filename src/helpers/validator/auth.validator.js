@@ -10,6 +10,16 @@ export const verifyOtpValidationSchema = z.object({
     .length(6, { message: "OTP must be exactly 6 characters long" }),
 });
 
+export const loginValidationSchema = z.object({
+  email: z
+    .string({ required_error: "Email is required" })
+    .email({ message: "Invalid email address format" }),
+
+  password: z
+    .string({ required_error: "Password is required" })
+    .min(6, { message: "Password must be at least 6 characters long" }),
+});
+
 export const signupValidationSchema = z.object({
   name: z
     .string({ required_error: "Name is required" })

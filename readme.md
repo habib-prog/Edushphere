@@ -18,7 +18,7 @@
 - **Database:** MongoDB & Mongoose (ODM)
 - **Caching & Message Broker:** Redis
 - **Authentication & Security:** JWT (JSON Web Tokens) & BcryptJS
-- **Validation:** Joi
+- **Validation:** Zod
 - **Testing Framework:** Vitest
 - **Email Service:** Nodemailer
 - **CORS Utility:** CORS for cross-origin resource sharing
@@ -28,6 +28,7 @@
 ## 🛠️ System Features
 
 ### 🔑 Core Authentication & Communication
+
 - **Notice Board (CRUD):** Create, read, update, and delete announcements. Includes social features:
   - **Likes** on notices
   - **Comments** thread on notices
@@ -43,52 +44,55 @@
 ## 👥 Role-Based Portals & Capabilities
 
 ### 🛡️ Admin Dashboard
+
 The Admin portal manages the complete directory of teachers, students, and batch assignments:
 
-*   **Student Management:**
-    *   **Add Student:** Secure creation requiring `{email, phone, password}`.
-    *   **Student List & Filter:** Fetch list with batch-wise filtering options.
-    *   **Edit Student Details:** Modify academic or personal details.
-    *   **Delete Student:** Remove inactive or graduated student records.
-    *   **Student Search:** Search students by name, email, or registry ID.
-*   **Approval System:**
-    *   **Manage Pending Requests:** Review registration requests, with features to **Accept** or **Delete** pending accounts.
-*   **Teacher Management:**
-    *   **Add Teacher:** Set up educator profiles.
-    *   **Teacher Directory:** List all active teachers.
-    *   **Edit / Delete Teacher:** Manage teaching staff profiles and access levels.
-*   **Administrative Outputs:**
-    *   **Student ID Card Generation:** Print-ready template formatting.
-    *   **Result Sheet Printing:** Generate print-ready transcripts for batches or individuals.
-*   **Feedback Collection:**
-    *   **Review Reader:** Read and analyze feedback submitted by students.
+- **Student Management:**
+  - **Add Student:** Secure creation requiring `{email, phone, password}`.
+  - **Student List & Filter:** Fetch list with batch-wise filtering options.
+  - **Edit Student Details:** Modify academic or personal details.
+  - **Delete Student:** Remove inactive or graduated student records.
+  - **Student Search:** Search students by name, email, or registry ID.
+- **Approval System:**
+  - **Manage Pending Requests:** Review registration requests, with features to **Accept** or **Delete** pending accounts.
+- **Teacher Management:**
+  - **Add Teacher:** Set up educator profiles.
+  - **Teacher Directory:** List all active teachers.
+  - **Edit / Delete Teacher:** Manage teaching staff profiles and access levels.
+- **Administrative Outputs:**
+  - **Student ID Card Generation:** Print-ready template formatting.
+  - **Result Sheet Printing:** Generate print-ready transcripts for batches or individuals.
+- **Feedback Collection:**
+  - **Review Reader:** Read and analyze feedback submitted by students.
 
 ---
 
 ### 🧑‍🏫 Teacher Dashboard
+
 Features tailored for teachers to evaluate performance and track student progress:
 
-*   **Attendance Tracking:**
-    *   Mark daily/weekly **Student Attendance** for assigned batches.
-*   **Performance Evaluation:**
-    *   **Result Sheet Input:** Add, edit, and publish grades and exam scores.
-    *   **Student Performance Assessment:** Evaluate and comment on student progress.
+- **Attendance Tracking:**
+  - Mark daily/weekly **Student Attendance** for assigned batches.
+- **Performance Evaluation:**
+  - **Result Sheet Input:** Add, edit, and publish grades and exam scores.
+  - **Student Performance Assessment:** Evaluate and comment on student progress.
 
 ---
 
 ### 🎓 Student Portal
+
 A personalized panel for students to manage their academic life:
 
-*   **Profile Management (CRUD):** Keep personal profile details up-to-date.
-*   **Academic Viewer:**
-    *   **View Results:** Check grades and download/print official result sheets.
-    *   **Attendance Analytics:** Interactive visual charts tracking attendance records over semesters.
-*   **Tuition & Payments:**
-    *   Online portal integration to track and complete school fee payments.
-*   **Review & Feedback:**
-    *   **Feedback Creator:** Create and submit experience reviews/feedback to the administration.
-*   **Access Control:**
-    *   Registration & Login with required fields: `{email, phone, password}`.
+- **Profile Management (CRUD):** Keep personal profile details up-to-date.
+- **Academic Viewer:**
+  - **View Results:** Check grades and download/print official result sheets.
+  - **Attendance Analytics:** Interactive visual charts tracking attendance records over semesters.
+- **Tuition & Payments:**
+  - Online portal integration to track and complete school fee payments.
+- **Review & Feedback:**
+  - **Feedback Creator:** Create and submit experience reviews/feedback to the administration.
+- **Access Control:**
+  - Registration & Login with required fields: `{email, phone, password}`.
 
 ---
 
@@ -113,40 +117,59 @@ A personalized panel for students to manage their academic life:
 ## ⚙️ Installation & Setup
 
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/habib-prog/edusphere.git
    cd edusphere
    ```
 
-2. **Install Dependencies:**
+2. **Start Redis with Docker:**
+
+   ```bash
+   docker compose up -d redis
+   docker compose ps
+   ```
+
+3. **Install Dependencies:**
+
    ```bash
    npm install
    ```
 
-3. **Set Up Environment Variables:**
+4. **Set Up Environment Variables:**
    Create a `.env` file in the root directory:
-  ```env
-  PORT=8000
-  Database=your_mongodb_connection_uri
-  JWT_SECRET=your_jwt_secret_key
-  REDIS_URL=redis://localhost:6379
-  SMTP_HOST=smtp.gmail.com
-  SMTP_PORT=587
-  SMTP_SECURE=false
-  SMTP_USER=your_email@gmail.com
-  SMTP_PASS=your_app_password
-  MAIL_FROM=your_email@gmail.com
-  ```
 
-4. **Run the Server:**
-   *   **Development Mode (auto-reloading):**
-       ```bash
-       npm run dev
-       ```
-   *   **Production Mode:**
-       ```bash
-       npm start
-       ```
+   ```env
+   PORT=8000
+   DATABASE=your_mongodb_connection_uri
+   JWT_SECRET=your_jwt_secret_key
+   REDIS_URL=redis://localhost:6379
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_SECURE=false
+   SMTP_USER=your_email@gmail.com
+   SMTP_PASS=your_app_password
+   MAIL_FROM=your_email@gmail.com
+   ```
+
+5. **Run the Server:**
+   - **Development Mode (auto-reloading):**
+     ```bash
+     npm run dev
+     ```
+   - **Production Mode:**
+     ```bash
+     npm start
+     ```
+
+6. **Stop Docker Services (optional):**
+   ```bash
+   docker compose down
+   ```
+
+### ✅ Validation with Zod
+
+Request payloads for signup, login, and OTP verification are validated using Zod schemas from [src/helpers/validator/auth.validator.js](src/helpers/validator/auth.validator.js).
 
 ---
 
