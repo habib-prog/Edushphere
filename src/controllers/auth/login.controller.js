@@ -1,6 +1,11 @@
 import { loginValidationSchema } from "../../helpers/validator/auth.validator.js";
+import { loginService } from "../../services/auth/login.services.js";
+import {
+  accessTokenCookieOptions,
+  refreshTokenCookieOptions,
+} from "../../helpers/utils/cookie.Options.js";
 
-export const loginController = (req, res) => {
+export const loginController = async (req, res) => {
   try {
     const validationResult = loginValidationSchema.safeParse(req.body);
 
@@ -11,19 +16,25 @@ export const loginController = (req, res) => {
       });
     }
 
-    const { email } = validationResult.data;
+    const { email, password } = validationResult.data;
+
+    const { user, accessToken, refreshToken } = await loginService({
+      email,
+      password,
+    });
+
+    res.cookie("accessToken", accessToken, accessTokenCookieOptions);
+    res.cookie("refreshToken", refreshToken, refreshTokenCookieOptions);
 
     return res.status(200).json({
       success: true,
-      message: "Login validation passed",
-      data: { email },
+      message: "Login successful",
+      data: { user },
     });
   } catch (error) {
-    console.error(error);
-
-    return res.status(500).json({
+    return res.status(error.statusCode || 500).json({
       success: false,
-      message: "Internal Server Error",
+      message: error.message || "Internal Server Error",
     });
   }
 };
