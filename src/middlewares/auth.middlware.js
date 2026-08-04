@@ -10,9 +10,10 @@ export const authMiddleWare = (req, res, next) => {
         message: "Unauthorized: no access token",
       });
     }
-    const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
 
+    const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
     req.user = decoded;
+    next();
   } catch (error) {
     return res.status(401).json({
       success: false,
