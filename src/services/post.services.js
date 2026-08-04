@@ -1,5 +1,6 @@
 import Post from "../models/postSchema.js";
 
+// Convert a Mongoose document into a plain object and add likeCount.
 const serializePost = (post) => {
   const plainPost = post.toObject ? post.toObject() : post;
 
@@ -9,6 +10,7 @@ const serializePost = (post) => {
   };
 };
 
+// Create a new post and save it to the database.
 export const createPostService = async ({
   type,
   title,
@@ -39,6 +41,7 @@ export const createPostService = async ({
   return serializePost(post);
 };
 
+// Fetch all posts from newest to oldest.
 export const getAllPostsService = async () => {
   const posts = await Post.find()
     .populate("author", "name email role")
@@ -48,6 +51,7 @@ export const getAllPostsService = async () => {
   return posts.map((post) => serializePost(post));
 };
 
+// Fetch one post by its ID.
 export const getPostByIdService = async (postId) => {
   const post = await Post.findById(postId)
     .populate("author", "name email role")
@@ -62,6 +66,7 @@ export const getPostByIdService = async (postId) => {
   return serializePost(post);
 };
 
+// Add or remove the current user's like from the post.
 export const toggleLikeService = async (postId, userId) => {
   const post = await Post.findById(postId);
 
@@ -89,6 +94,7 @@ export const toggleLikeService = async (postId, userId) => {
   };
 };
 
+// Add a new comment to a post.
 export const addCommentService = async (postId, userId, text) => {
   if (!text || !text.trim()) {
     const error = new Error("Comment text is required");
@@ -114,6 +120,7 @@ export const addCommentService = async (postId, userId, text) => {
   return serializePost(post);
 };
 
+// Delete a post from the database.
 export const deletePostService = async (postId) => {
   const post = await Post.findByIdAndDelete(postId);
 

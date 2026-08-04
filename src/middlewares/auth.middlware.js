@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+// Verify the user's access token from cookies and attach the decoded user to req.
 export const authMiddleWare = (req, res, next) => {
   try {
     const token = req.cookies?.accessToken;

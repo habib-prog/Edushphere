@@ -8,10 +8,12 @@ import {
 } from "../services/post.services.js";
 import { uploadToCloudinary } from "../helpers/Upload/cloudinary.js";
 
+// Create a new post, including optional image upload to Cloudinary.
 export const createPostController = async (req, res) => {
   try {
     let imageUrl = req.body.imageUrl || "";
 
+    // If an image file is sent, upload it first and use the Cloudinary URL.
     if (req.file) {
       const uploaded = await uploadToCloudinary(
         req.file.buffer,
@@ -41,6 +43,7 @@ export const createPostController = async (req, res) => {
   }
 };
 
+// Get all posts for the notifications/feed page.
 export const getAllPostsController = async (req, res) => {
   try {
     const posts = await getAllPostsService();
@@ -57,6 +60,7 @@ export const getAllPostsController = async (req, res) => {
   }
 };
 
+// Get one post by its ID.
 export const getPostByIdController = async (req, res) => {
   try {
     const post = await getPostByIdService(req.params.postId);
@@ -73,6 +77,7 @@ export const getPostByIdController = async (req, res) => {
   }
 };
 
+// Toggle like/unlike for a post.
 export const toggleLikeController = async (req, res) => {
   try {
     const result = await toggleLikeService(req.params.postId, req.user?.id);
@@ -89,6 +94,7 @@ export const toggleLikeController = async (req, res) => {
   }
 };
 
+// Add a comment to an existing post.
 export const addCommentController = async (req, res) => {
   try {
     const post = await addCommentService(
@@ -110,6 +116,7 @@ export const addCommentController = async (req, res) => {
   }
 };
 
+// Delete a post by ID.
 export const deletePostController = async (req, res) => {
   try {
     const post = await deletePostService(req.params.postId);

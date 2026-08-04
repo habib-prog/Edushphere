@@ -1,3 +1,4 @@
+// Restrict access to specific roles such as admin.
 export const roleCheck = (allowedRoles = []) => {
   return (req, res, next) => {
     if (!req.user) {
