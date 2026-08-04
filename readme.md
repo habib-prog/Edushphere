@@ -141,9 +141,20 @@ A personalized panel for students to manage their academic life:
 
    ```env
    PORT=8000
-   DATABASE=your_mongodb_connection_uri
-   JWT_SECRET=your_jwt_secret_key
-   REDIS_URL=redis://localhost:6379
+   NODE_ENV=development
+
+   DATABASE=mongodb://127.0.0.1:27017/edusphere
+
+   JWT_ACCESS_SECRET=your_access_token_secret
+   JWT_REFRESH_SECRET=your_refresh_token_secret
+   ACCESS_TOKEN_EXPIRES_IN=15m
+   REFRESH_TOKEN_EXPIRES_IN=7d
+
+   REDIS_HOST=127.0.0.1
+   REDIS_PORT=6379
+   REDIS_PASSWORD=
+   REDIS_URL=redis://127.0.0.1:6379
+
    SMTP_HOST=smtp.gmail.com
    SMTP_PORT=587
    SMTP_SECURE=false
@@ -151,6 +162,8 @@ A personalized panel for students to manage their academic life:
    SMTP_PASS=your_app_password
    MAIL_FROM=your_email@gmail.com
    ```
+
+   > If you use Docker for Redis, keep `REDIS_HOST=127.0.0.1` and `REDIS_PORT=6379` unless you change the container mapping.
 
 5. **Run the Server:**
    - **Development Mode (auto-reloading):**
