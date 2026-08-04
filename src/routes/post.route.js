@@ -13,8 +13,8 @@ import { upload } from "../helpers/Upload/multer.js";
 
 const router = express.Router();
 
-router.get("/", getAllPostsController);
-router.get("/:postId", getPostByIdController);
+router.get("/", authMiddleWare, getAllPostsController);
+router.get("/:postId", authMiddleWare, getPostByIdController);
 
 router.post(
   "/",
