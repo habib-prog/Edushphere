@@ -1,7 +1,7 @@
 import express from "express";
-import { addStudent } from "../../controllers/admin.controller";
-import { authMiddleWare } from "../../middlewares/auth.middlware";
-import { roleCheck } from "../../middlewares/roles.middleware";
+import { addStudent } from "../../controllers/admin.controller.js";
+import { authMiddleWare } from "../../middlewares/auth.middlware.js";
+import { roleCheck } from "../../middlewares/roles.middleware.js";
 
 const router = express.Router();
 

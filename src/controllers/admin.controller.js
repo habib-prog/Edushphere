@@ -1,5 +1,5 @@
 // Importing service layers
-import { createStudentIntoDB } from "../services/admin.services";
+import { createStudentIntoDB } from "../services/admin.services.js";
 
 export const addStudent = async (req, res, next) => {
   try {
