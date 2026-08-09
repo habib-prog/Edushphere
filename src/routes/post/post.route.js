@@ -6,10 +6,10 @@ import {
   getAllPostsController,
   getPostByIdController,
   toggleLikeController,
-} from "../controllers/post.controller.js";
-import { authMiddleWare } from "../middlewares/auth.middlware.js";
-import { roleCheck } from "../middlewares/roles.middleware.js";
-import { upload } from "../helpers/Upload/multer.js";
+} from "../../controllers/post.controller.js";
+import { authMiddleWare } from "../../middlewares/auth.middlware.js";
+import { roleCheck } from "../../middlewares/roles.middleware.js";
+import { upload } from "../../helpers/Upload/multer.js";
 
 const router = express.Router();
 
