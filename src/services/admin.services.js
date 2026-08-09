@@ -25,6 +25,7 @@ export const createStudentIntoDB = async (payload) => {
       email,
       password: "defaultPassword123", // Default Pass set by admin and auto hashed in DB
       role: "student",
+      isVerified: true,
     });
     userId = newUser._id;
   }
